@@ -19,7 +19,15 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: [process.env.FRONTEND_URL || 'http://localhost:3000', 'https://ethara-ai.up.railway.app'],
+  origin: function(origin, callback) {
+    // Allow requests with no origin (mobile apps, curl, etc)
+    if (!origin) return callback(null, true);
+    // Allow localhost and any Railway domain
+    if (origin.includes('localhost') || origin.includes('railway.app')) {
+      return callback(null, true);
+    }
+    return callback(null, true); // Allow all in production for now
+  },
   credentials: true
 }));
 app.use(express.json());
@@ -101,8 +109,8 @@ const startServer = async () => {
   }
 
   const PORT = process.env.PORT || 5001;
-  app.listen(PORT, async () => {
-    console.log(`🚀 Server running on port ${PORT}`);
+  app.listen(PORT, '0.0.0.0', async () => {
+    console.log(`🚀 Server running on port ${PORT} (bound to 0.0.0.0)`);
     
     // Auto-seed if database is empty
     try {
