@@ -1,0 +1,21 @@
+.profile-page { display: flex; flex-direction: column; gap: 0; }
+
+.profile-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 768px) { .profile-layout { grid-template-columns: 1fr; } }
+
+.profile-card { grid-column: 1 / -1; }
+
+.profile-avatar-section {
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+}
+
+.profile-avatar { border: 3px solid var(--accent); }
+
+.profile-name { font-size: 1.3rem; font-weight: 700; margin-bottom: 4px; }
+
+.section-title { font-size: 1rem; font-weight: 700; }
