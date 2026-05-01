@@ -6,7 +6,6 @@ import TaskModal from '../components/TaskModal';
 import './TasksPage.css';
 
 const priorityColor = { low: 'var(--green)', medium: 'var(--yellow)', high: 'var(--orange)', critical: 'var(--red)' };
-const statusLabel = { todo: 'STATUS', 'in-progress': 'In Progress', review: 'Review', done: 'Done' };
 
 export default function TasksPage() {
   const [tasks, setTasks] = useState([]);

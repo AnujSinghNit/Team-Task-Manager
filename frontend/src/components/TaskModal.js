@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { taskAPI } from '../utils/api';
-import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 
 export default function TaskModal({ task, project, projects, onClose, onSave }) {
-  const { user } = useAuth();
   const [form, setForm] = useState({
     title: task?.title || '',
     description: task?.description || '',
