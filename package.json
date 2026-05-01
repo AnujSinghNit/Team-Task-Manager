@@ -1,19 +1,13 @@
 {
-  "name": "ethara-ai-workspace",
+  "name": "team-task-manager",
   "version": "1.0.0",
-  "description": "Full-stack Project Management Platform",
+  "description": "Full-stack Team Task Manager",
   "main": "backend/src/server.js",
   "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=9.0.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "start": "node backend/src/server.js",
-    "build": "cd frontend && npm install && npm run build",
-    "install-backend": "cd backend && npm install",
-    "railway-build": "npm run install-backend && npm run build"
-  },
-  "dependencies": {
-    "concurrently": "^8.2.0"
+    "railway-build": "cd backend && npm install && cd ../frontend && npm install && npm run build"
   }
 }
