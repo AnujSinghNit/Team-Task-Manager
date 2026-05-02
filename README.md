@@ -1,8 +1,8 @@
-# 🚀 Team Task Manager — Enterprise-Grade Project Management
+# 🚀 Team Task Manager — Project & Task Management App
 
-> A production-ready, full-stack web application for managing projects, assigning tasks, and tracking team progress with **Role-Based Access Control (RBAC)**, built with the MERN stack and deployed on **Railway**.
+> A full-stack web app where teams can create projects, give tasks to members, and see how work is going. It has **login system with roles** (Admin and Member), built with **React + Node.js + MongoDB** and live on **Railway**.
 
-🌐 **Live Demo:** [https://team-task-manager-production-f241.up.railway.app](https://team-task-manager-production-f241.up.railway.app)
+🌐 **Live App:** [https://team-task-manager-production-f241.up.railway.app](https://team-task-manager-production-f241.up.railway.app)
 
 | Role | Email | Password |
 |------|-------|----------|
@@ -13,322 +13,331 @@
 
 ## 📋 Table of Contents
 
-1. [Project Overview](#-project-overview)
-2. [Key Features](#-key-features)
-3. [Tech Stack](#-tech-stack)
-4. [Architecture](#-architecture)
-5. [Project Structure](#-project-structure)
-6. [Getting Started](#-getting-started)
-7. [API Documentation](#-api-documentation)
-8. [Role-Based Access Control](#-role-based-access-control)
-9. [Deployment Pipeline](#-deployment-pipeline)
-10. [Data Handling & NoSQL Design](#-data-handling--nosql-design)
-11. [Security Implementation](#-security-implementation)
-12. [Troubleshooting](#-troubleshooting)
-13. [Future Roadmap](#-future-roadmap)
+1. [What This Project Does](#-what-this-project-does)
+2. [Features](#-features)
+3. [Technologies Used](#-technologies-used)
+4. [How The App Is Built](#-how-the-app-is-built)
+5. [Folder Structure](#-folder-structure)
+6. [How To Run Locally](#-how-to-run-locally)
+7. [API Endpoints](#-api-endpoints)
+8. [User Roles & Permissions](#-user-roles--permissions)
+9. [How We Deployed It](#-how-we-deployed-it)
+10. [How Data Is Stored](#-how-data-is-stored)
+11. [Security](#-security)
+12. [Common Problems & Fixes](#-common-problems--fixes)
+13. [What We Can Add Next](#-what-we-can-add-next)
 
 ---
 
-## 📌 Project Overview
+## 📌 What This Project Does
 
-**Team Task Manager** is a premium, full-stack web application designed to help teams organize, track, and complete their work efficiently. It serves as a digital workspace where users can create projects, break them down into smaller tasks, and assign them to team members.
+**Team Task Manager** is a web app that helps teams work together better. Think of it like a digital office board where you can:
 
-Built with a sophisticated **"Cyber Deep" dark aesthetic**, the application features high-visibility data presentation and a modern design language, making project management not just productive but visually engaging.
+- Create projects (like "Build a Website" or "Marketing Plan")
+- Break each project into small tasks (like "Design login page" or "Write content")
+- Give tasks to team members
+- Track if tasks are done, in progress, or late
 
-### What Makes It Stand Out
+The app has a dark-themed design called **"Cyber Deep"** which looks modern and clean.
 
-- **Monorepo Architecture** — Single repository, single deployment for both frontend and backend
-- **Zero-Config Database** — Auto-falls back to in-memory MongoDB if no database URL is provided
-- **Auto-Seeding** — Demo data is created automatically on first startup
-- **One-Click Demo** — Pre-filled login buttons for instant feature testing
-- **Production-Ready** — Deployed and live on Railway with CI/CD via GitHub
+### What Makes It Special
 
----
-
-## ✨ Key Features
-
-### 🔐 Authentication System
-- **JWT-based Login/Signup** with secure token storage in `localStorage`
-- **Password Hashing** using bcrypt with 12 salt rounds
-- **Profile Management** — update name, avatar URL, and change password
-- **Protected Routes** — unauthorized access redirects to login page
-- **Demo Access** — One-click login for Admin and Member roles
-
-### 📁 Project Management
-- **Full CRUD** — Create, Read, Update, Delete projects
-- **Status Lifecycle** — Active, On Hold, Completed, Archived
-- **Priority Levels** — Low, Medium, High, Critical
-- **Deadline Tracking** — with visual overdue indicators
-- **Color Labels** — custom color per project
-- **Progress Bar** — calculated from completed tasks / total tasks
-
-### 👥 Team Collaboration
-- **Invite Members** by email address
-- **Role Assignment** — Admin or Member per project
-- **Member Removal** — Admin-only capability
-- **Owner Protection** — project creator cannot be removed
-
-### ✅ Task Engine
-- **Status Pipeline** — To Do → In Progress → Review → Done
-- **Priority Tagging** — Low / Medium / High / Critical with color codes
-- **Assignees** — assign tasks to project members with avatars
-- **Due Dates** — overdue tasks automatically flagged with ⚠ indicator
-- **Tags** — comma-separated labels for categorization
-- **Quick Status Change** — dropdown directly on Kanban cards
-- **Comments** — discussion thread on each task
-
-### 📊 Dashboard (Command Center)
-- **Time-Based Greeting** — "Good morning/afternoon/evening, {name}"
-- **6 Stat Cards** — Total Tasks, In Progress, Completed, Overdue, My Tasks, Projects
-- **Stat Card Watermarks** — branded Team Task Manager logo inside each card
-- **Recent Tasks** — last 8 tasks with clickable status badges
-- **Project Overview** — top 5 projects with progress bars
-
-### 🗂️ Multiple Views
-- **Kanban Board** — column-based view organized by status
-- **List/Table View** — sortable, filterable task table with all details
-- **Members View** — team management per project
-
-### 🔍 Advanced Filtering
-- Filter by **Project**, **Status**, **Priority**, and **Search Term**
-- **Clear All Filters** with one click
-- Global project search by name
+- **One App, One Deploy** — Both the website (React) and the server (Node.js) live in one folder and deploy together
+- **No Database Needed To Start** — If you don't have MongoDB set up, the app creates a temporary one in memory
+- **Auto Demo Data** — When the app starts fresh, it creates sample users and tasks so you can test right away
+- **Quick Demo Login** — Just click "Admin User" or "Member User" button to login instantly
+- **Already Live** — The app is deployed and running on Railway right now
 
 ---
 
-## 🛠 Tech Stack
+## ✨ Features
 
-### Backend
-| Technology | Version | Purpose |
-|---|---|---|
-| **Node.js** | ≥ 18.x | Server runtime environment |
-| **Express.js** | 4.18.x | REST API framework |
-| **MongoDB** | 7.x | NoSQL database |
-| **Mongoose** | 8.0.x | MongoDB ODM with schema validation |
-| **JWT** (jsonwebtoken) | 9.0.x | Stateless authentication tokens |
-| **bcryptjs** | 2.4.x | Password hashing (12 rounds) |
-| **express-validator** | 7.0.x | Request body validation |
-| **mongodb-memory-server** | 11.1.x | In-memory database fallback |
-| **cors** | 2.8.x | Cross-origin resource sharing |
-| **dotenv** | 16.3.x | Environment variable management |
+### 🔐 Login & Signup
+- Users can **register** with name, email, and password
+- **Login** gives you a token (JWT) that keeps you logged in
+- You can **update your profile** — change name, picture
+- You can **change your password** with the old password check
+- Pages that need login will **send you back to login page** if you're not logged in
+- **Demo buttons** — click one button to fill in admin or member login details
 
-### Frontend
-| Technology | Version | Purpose |
-|---|---|---|
-| **React** | 18.x | Component-based UI library |
-| **React Router** | v6 | Client-side routing with guards |
-| **Axios** | 1.x | HTTP client with JWT interceptors |
-| **react-hot-toast** | 2.x | Toast notification system |
-| **date-fns** | 2.x | Date formatting and comparison |
-| **Context API** | — | Global auth state management |
-| **Vanilla CSS** | — | Custom "Cyber Deep" dark theme |
+### 📁 Projects
+- **Create new projects** with a title, description, and deadline
+- **Edit or delete** your projects
+- Set project **status** — Active, On Hold, Completed, or Archived
+- Set **how important** it is — Low, Medium, High, or Critical
+- Add a **color label** to each project
+- See a **progress bar** showing how many tasks are done
 
-### DevOps & Deployment
-| Service | Purpose |
+### 👥 Team
+- **Add team members** to a project using their email
+- Give them a **role** — Admin or Member
+- **Remove members** from the project (only Admins can do this)
+- The person who made the project can never be removed
+
+### ✅ Tasks
+- **Create tasks** inside any project
+- Set task **status** — To Do, In Progress, Review, or Done
+- Set **priority** — Low, Medium, High, or Critical (with colors)
+- **Assign a task** to any member of that project
+- Set a **due date** — late tasks get marked with a warning sign
+- Add **tags** like "frontend", "bug", "urgent"
+- **Change status quickly** using a dropdown right on the card
+- **Add comments** on any task to discuss it
+
+### 📊 Dashboard (Home Page)
+- **Greeting** that changes by time — "Good morning", "Good afternoon", etc.
+- **6 number boxes** showing: Total Tasks, In Progress, Done, Late, My Tasks, Projects
+- **Recent tasks** list — click on any task status to change it
+- **Projects list** with progress bars
+
+### 🗂️ Different Views
+- **Kanban Board** — tasks shown in columns by status (like Trello)
+- **Table View** — tasks in a list with all details
+- **Members View** — see and manage team members
+
+### 🔍 Search & Filter
+- Filter tasks by **project, status, priority**, or **search words**
+- **Clear all filters** with one click
+- Search projects by name
+
+---
+
+## 🛠 Technologies Used
+
+### Backend (Server Side)
+| Tool | What It Does |
 |---|---|
-| **Railway** | Cloud deployment (Nixpacks builder) |
-| **GitHub** | Source control + CI/CD trigger |
-| **MongoDB Atlas** | Managed production database (optional) |
+| **Node.js** | Runs JavaScript on the server |
+| **Express.js** | Makes it easy to create API routes |
+| **MongoDB** | Database that stores all data |
+| **Mongoose** | Helps talk to MongoDB with easy-to-use code |
+| **JWT** | Creates login tokens so users stay logged in |
+| **bcryptjs** | Hides passwords so no one can read them |
+| **express-validator** | Checks if user input is correct |
+| **mongodb-memory-server** | Creates a temporary database if no real one is given |
+| **cors** | Lets the frontend talk to the backend |
+| **dotenv** | Reads secret settings from a file |
+
+### Frontend (What Users See)
+| Tool | What It Does |
+|---|---|
+| **React 18** | Builds the user interface |
+| **React Router v6** | Handles page navigation without reload |
+| **Axios** | Sends requests to the backend API |
+| **react-hot-toast** | Shows pop-up messages (like "Task created!") |
+| **date-fns** | Makes dates look nice (like "May 2, 2026") |
+| **Context API** | Shares login info across all pages |
+| **CSS (custom)** | Our own dark theme called "Cyber Deep" |
+
+### Hosting & Deployment
+| Service | What It Does |
+|---|---|
+| **Railway** | Hosts our app on the internet |
+| **GitHub** | Stores our code and auto-deploys when we push |
+| **MongoDB Atlas** | Cloud database (optional — app works without it too) |
 
 ---
 
-## 🏗 Architecture
+## 🏗 How The App Is Built
 
-### System Architecture Diagram
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                          CLIENT (Browser)                          │
-│  ┌─────────────────────────────────────────────────────────────┐   │
-│  │                    React 18 SPA                              │   │
-│  │  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐   │   │
-│  │  │  Login   │  │Dashboard │  │ Projects │  │  Tasks   │   │   │
-│  │  │  Page    │  │  Page    │  │  Page    │  │  Page    │   │   │
-│  │  └──────────┘  └──────────┘  └──────────┘  └──────────┘   │   │
-│  │              AuthContext (JWT State)                         │   │
-│  │              Axios Instance (API Client)                     │   │
-│  └──────────────────────────┬──────────────────────────────────┘   │
-└─────────────────────────────┼──────────────────────────────────────┘
-                              │ HTTPS (REST API)
-                              ▼
-┌─────────────────────────────────────────────────────────────────────┐
-│                     RAILWAY CLOUD (Production)                     │
-│  ┌─────────────────────────────────────────────────────────────┐   │
-│  │                  Node.js + Express Server                    │   │
-│  │                                                              │   │
-│  │  ┌─────────────┐  ┌──────────────┐  ┌──────────────────┐   │   │
-│  │  │  Auth       │  │  Project     │  │  Task            │   │   │
-│  │  │  Routes     │  │  Routes      │  │  Routes          │   │   │
-│  │  │  /api/auth  │  │  /api/projects│ │  /api/tasks      │   │   │
-│  │  └──────┬──────┘  └──────┬───────┘  └──────┬───────────┘   │   │
-│  │         │                │                  │               │   │
-│  │  ┌──────▼──────────────────────────────────▼───────────┐   │   │
-│  │  │            Middleware Layer                          │   │   │
-│  │  │  JWT Verify → Role Check → Validation → Controller  │   │   │
-│  │  └──────────────────────┬──────────────────────────────┘   │   │
-│  │                         │                                   │   │
-│  │  ┌──────────────────────▼──────────────────────────────┐   │   │
-│  │  │              Mongoose ODM Layer                      │   │   │
-│  │  │  User Model  │  Project Model  │  Task Model        │   │   │
-│  │  └──────────────────────┬──────────────────────────────┘   │   │
-│  │                         │                                   │   │
-│  │  ┌─────────────┐  ┌────▼────────────────┐                 │   │
-│  │  │ Static Files│  │  MongoDB            │                 │   │
-│  │  │ (React Build)│ │  Atlas / In-Memory  │                 │   │
-│  │  └─────────────┘  └─────────────────────┘                 │   │
-│  └─────────────────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────────────────┘
-```
-
-### Request-Response Flow
+### The Big Picture
 
 ```
-User Action ──► React Component ──► Axios (+ JWT Header)
-                                         │
-                                         ▼
-                                   Express Router
-                                         │
-                               ┌─────────┼─────────┐
-                               ▼         ▼         ▼
-                          Auth MW    Validator   Controller
-                               │         │         │
-                               └─────────┼─────────┘
-                                         ▼
-                                   Mongoose Query
-                                         │
-                                         ▼
-                                   MongoDB Response
-                                         │
-                                         ▼
-                                   JSON Response ──► React State Update ──► UI Re-render
+┌─────────────────────────────────────────────────────────────┐
+│                    USER'S BROWSER                            │
+│                                                              │
+│  React App (What you see and click)                         │
+│  ┌────────┐ ┌──────────┐ ┌──────────┐ ┌────────┐           │
+│  │ Login  │ │Dashboard │ │Projects  │ │ Tasks  │           │
+│  │ Page   │ │  Page    │ │  Page    │ │  Page  │           │
+│  └────────┘ └──────────┘ └──────────┘ └────────┘           │
+│                                                              │
+│  Login Info (JWT Token) is saved in the browser              │
+│  Axios sends requests to the server with that token          │
+└──────────────────────────┬───────────────────────────────────┘
+                           │ Sends requests over the internet
+                           ▼
+┌─────────────────────────────────────────────────────────────┐
+│                   RAILWAY SERVER                             │
+│                                                              │
+│  Express.js (Handles all the logic)                         │
+│  ┌─────────────────────────────────────────────────────┐    │
+│  │ API Routes                                           │    │
+│  │ /api/auth     → Login, Signup, Profile               │    │
+│  │ /api/projects → Create, Edit, Delete projects        │    │
+│  │ /api/tasks    → Create, Edit, Delete, Comment tasks  │    │
+│  │ /api/users    → Search users                         │    │
+│  └─────────────┬───────────────────────────────────────┘    │
+│                │                                             │
+│  Security Checks (runs before every request):               │
+│  1. Is the login token valid? (JWT check)                   │
+│  2. Does this user have permission? (Role check)            │
+│  3. Is the data correct? (Input check)                      │
+│                │                                             │
+│  Mongoose (talks to the database)                           │
+│                │                                             │
+│  Also serves the React website files                        │
+└────────────────┼────────────────────────────────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    DATABASE (MongoDB)                        │
+│                                                              │
+│  3 Collections:                                              │
+│  ┌────────┐  ┌───────────┐  ┌─────────┐                    │
+│  │ Users  │  │ Projects  │  │  Tasks  │                    │
+│  └────────┘  └───────────┘  └─────────┘                    │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### How A Request Works
+
+```
+You click "Create Task"
+        │
+        ▼
+React sends a request (with your login token)
+        │
+        ▼
+Express server gets it
+        │
+        ├── Step 1: Check if your token is real ✓
+        ├── Step 2: Check if you're allowed to do this ✓
+        ├── Step 3: Check if the data looks right ✓
+        │
+        ▼
+Save the new task to MongoDB
+        │
+        ▼
+Send back the result
+        │
+        ▼
+React shows the new task on your screen
 ```
 
 ---
 
-## 📂 Project Structure
+## 📂 Folder Structure
 
 ```
 team-task-manager/
-├── backend/
+├── backend/                           # Server code
 │   ├── src/
 │   │   ├── config/
-│   │   │   └── seed.js                 # Database seeder script
+│   │   │   └── seed.js               # Creates sample data
 │   │   ├── controllers/
-│   │   │   ├── auth.controller.js      # Register, Login, Profile, Password
-│   │   │   ├── project.controller.js   # CRUD + Member management
-│   │   │   └── task.controller.js      # CRUD + Comments + Stats
+│   │   │   ├── auth.controller.js    # Login, Signup, Profile logic
+│   │   │   ├── project.controller.js # Project create/edit/delete logic
+│   │   │   └── task.controller.js    # Task create/edit/delete logic
 │   │   ├── middleware/
-│   │   │   └── auth.middleware.js      # JWT verify, role guards
+│   │   │   └── auth.middleware.js    # Checks login token & user role
 │   │   ├── models/
-│   │   │   ├── User.js                 # name, email, password, avatar
-│   │   │   ├── Project.js             # name, members[], status, priority
-│   │   │   └── Task.js                # title, assignee, status, comments[]
+│   │   │   ├── User.js              # What a user looks like in database
+│   │   │   ├── Project.js           # What a project looks like
+│   │   │   └── Task.js              # What a task looks like
 │   │   ├── routes/
-│   │   │   ├── auth.routes.js          # POST /register, /login, GET /me
-│   │   │   ├── project.routes.js       # CRUD + /members endpoints
-│   │   │   ├── task.routes.js          # CRUD + /comments + /stats
-│   │   │   └── user.routes.js          # GET /search, /:id
-│   │   └── server.js                   # Express app, DB connection, auto-seed
+│   │   │   ├── auth.routes.js       # /api/auth/login, /register, etc.
+│   │   │   ├── project.routes.js    # /api/projects endpoints
+│   │   │   ├── task.routes.js       # /api/tasks endpoints
+│   │   │   └── user.routes.js       # /api/users endpoints
+│   │   └── server.js                # Main file — starts everything
 │   └── package.json
 │
-├── frontend/
+├── frontend/                          # Website code (what users see)
 │   ├── public/
-│   │   ├── index.html
-│   │   └── logo.png                    # Team Task Manager brand logo
+│   │   └── index.html
 │   ├── src/
 │   │   ├── components/
-│   │   │   ├── TaskModal.js            # Create/Edit task modal
+│   │   │   ├── TaskModal.js          # Pop-up form to create/edit tasks
 │   │   │   └── layout/
-│   │   │       ├── Layout.js           # Sidebar + topbar shell
+│   │   │       ├── Layout.js         # Sidebar menu + top bar
 │   │   │       └── Layout.css
 │   │   ├── context/
-│   │   │   └── AuthContext.js          # JWT state, login/logout actions
+│   │   │   └── AuthContext.js        # Saves login info for all pages
 │   │   ├── pages/
-│   │   │   ├── LoginPage.js            # Login + demo buttons
-│   │   │   ├── RegisterPage.js         # Registration form
-│   │   │   ├── DashboardPage.js        # Stats, recent tasks, projects
-│   │   │   ├── ProjectsPage.js         # Project grid with CRUD
-│   │   │   ├── ProjectDetailPage.js    # Kanban, list, members tabs
-│   │   │   ├── TasksPage.js            # All tasks table with filters
-│   │   │   └── ProfilePage.js          # Profile edit + password change
+│   │   │   ├── LoginPage.js          # Login form + demo buttons
+│   │   │   ├── RegisterPage.js       # Signup form
+│   │   │   ├── DashboardPage.js      # Home page with stats
+│   │   │   ├── ProjectsPage.js       # All projects grid
+│   │   │   ├── ProjectDetailPage.js  # One project — Kanban, list, team
+│   │   │   ├── TasksPage.js          # All tasks with filters
+│   │   │   └── ProfilePage.js        # Edit your profile
 │   │   ├── styles/
-│   │   │   └── global.css              # "Cyber Deep" theme + design tokens
+│   │   │   └── global.css            # Dark theme colors & styles
 │   │   ├── utils/
-│   │   │   └── api.js                  # Axios instance + API wrappers
-│   │   ├── App.js                      # Router + protected route guards
-│   │   └── index.js                    # React entry point
+│   │   │   └── api.js                # Sets up Axios to talk to server
+│   │   ├── App.js                    # All page routes defined here
+│   │   └── index.js                  # App starts here
 │   └── package.json
 │
-├── package.json                         # Root orchestration (install + build)
-├── railway.toml                         # Railway deployment configuration
-├── nixpacks.toml                        # Nixpacks environment variables
-├── Procfile                             # Process declaration
-└── README.md                           # This file
+├── package.json                       # Root file for building everything
+├── railway.toml                       # Tells Railway how to build & run
+├── nixpacks.toml                      # Extra settings for Railway
+├── Procfile                           # Backup run command
+└── README.md                         # This file
 ```
 
 ---
 
-## 🚀 Getting Started
+## 🚀 How To Run Locally
 
-### Prerequisites
+### What You Need First
 
-- **Node.js** v18 or higher
-- **npm** v9+
+- **Node.js** version 18 or higher
+- **npm** (comes with Node.js)
 - **Git**
-- **MongoDB** (optional — app auto-creates in-memory DB if none provided)
+- **MongoDB** — optional! The app works without it
 
-### Local Development
+### Steps
 
-#### 1. Clone the Repository
+#### 1. Download the code
 
 ```bash
 git clone https://github.com/AnujSinghNit/Team-Task-Manager.git
 cd Team-Task-Manager
 ```
 
-#### 2. Install Dependencies
+#### 2. Install everything
 
 ```bash
-# Install backend dependencies
+# Go to backend folder and install
 cd backend && npm install
 
-# Install frontend dependencies  
+# Go to frontend folder and install
 cd ../frontend && npm install
 ```
 
-#### 3. Configure Environment
+#### 3. Set up settings (optional)
 
-Create `backend/.env`:
+Create a file called `.env` inside the `backend/` folder:
 
 ```env
 PORT=5001
 NODE_ENV=development
-MONGODB_URI=mongodb://localhost:27017/team-task-manager   # Optional
-JWT_SECRET=your_super_secret_key
-FRONTEND_URL=http://localhost:3000
+JWT_SECRET=any_secret_word_here
 ```
 
-> 💡 **No MongoDB installed?** No problem — the app automatically starts an in-memory MongoDB server and seeds demo data.
+> 💡 **Don't have MongoDB?** That's fine! The app will create a temporary database in memory and add sample data.
 
-#### 4. Start the Application
+#### 4. Start the app
 
-**Terminal 1 — Backend:**
+**Terminal 1 — Start the server:**
 ```bash
 cd backend
 npm run dev
-# ✅ Server running on port 5001
-# ✅ Connected to MongoDB (or In-Memory MongoDB)
-# 🌱 Demo data seeded automatically!
+# You'll see: ✅ Server running on port 5001
+# You'll see: ✅ Connected to MongoDB
+# You'll see: 🌱 Demo data created!
 ```
 
-**Terminal 2 — Frontend:**
+**Terminal 2 — Start the website:**
 ```bash
 cd frontend
 npm start
-# ✅ React app running on http://localhost:3000
+# Opens http://localhost:3000
 ```
 
-#### 5. Login
+#### 5. Login and try it
 
 Open `http://localhost:3000` and use:
 
@@ -339,107 +348,117 @@ Open `http://localhost:3000` and use:
 
 ---
 
-## 📡 API Documentation
+## 📡 API Endpoints
 
 **Base URL:** `https://team-task-manager-production-f241.up.railway.app/api`
 
-All protected routes require: `Authorization: Bearer <JWT_TOKEN>`
-
-### Authentication Endpoints
-
-| Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| `POST` | `/api/auth/register` | ❌ | Register a new user |
-| `POST` | `/api/auth/login` | ❌ | Login → returns JWT token |
-| `GET` | `/api/auth/me` | ✅ | Get current user profile |
-| `PUT` | `/api/auth/profile` | ✅ | Update name / avatar |
-| `PUT` | `/api/auth/change-password` | ✅ | Change password |
-
-### Project Endpoints
-
-| Method | Endpoint | Auth | Role | Description |
-|--------|----------|------|------|-------------|
-| `GET` | `/api/projects` | ✅ | Any | List user's projects |
-| `POST` | `/api/projects` | ✅ | Any | Create new project |
-| `GET` | `/api/projects/:id` | ✅ | Member | Get project details |
-| `PUT` | `/api/projects/:id` | ✅ | Admin | Update project |
-| `DELETE` | `/api/projects/:id` | ✅ | Owner | Delete project + all tasks |
-| `POST` | `/api/projects/:id/members` | ✅ | Admin | Add member by email |
-| `DELETE` | `/api/projects/:id/members/:userId` | ✅ | Admin | Remove member |
-
-### Task Endpoints
-
-| Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| `GET` | `/api/tasks` | ✅ | Get tasks (filterable) |
-| `POST` | `/api/tasks` | ✅ | Create a task |
-| `GET` | `/api/tasks/:id` | ✅ | Get single task |
-| `PUT` | `/api/tasks/:id` | ✅ | Update task |
-| `DELETE` | `/api/tasks/:id` | ✅ | Delete task |
-| `POST` | `/api/tasks/:id/comments` | ✅ | Add comment |
-| `GET` | `/api/tasks/dashboard/stats` | ✅ | Dashboard statistics |
-
-**Query Parameters for `GET /api/tasks`:**
+Every request (except login/register) needs this header:
 ```
-?project=ID&status=todo|in-progress|review|done&priority=low|medium|high|critical&search=keyword&page=1&limit=50
+Authorization: Bearer YOUR_LOGIN_TOKEN
 ```
 
-### User Endpoints
+### Login & Signup
 
-| Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| `GET` | `/api/users/search?email=` | ✅ | Search users by email |
-| `GET` | `/api/users/:id` | ✅ | Get user by ID |
+| Method | URL | Needs Login? | What It Does |
+|--------|-----|:---:|-------------|
+| `POST` | `/api/auth/register` | ❌ | Create a new account |
+| `POST` | `/api/auth/login` | ❌ | Login and get a token |
+| `GET` | `/api/auth/me` | ✅ | Get your profile info |
+| `PUT` | `/api/auth/profile` | ✅ | Update your name or picture |
+| `PUT` | `/api/auth/change-password` | ✅ | Change your password |
+
+### Projects
+
+| Method | URL | Who Can Do It | What It Does |
+|--------|-----|:---:|-------------|
+| `GET` | `/api/projects` | Any logged-in user | See your projects |
+| `POST` | `/api/projects` | Any logged-in user | Create a new project |
+| `GET` | `/api/projects/:id` | Project member | See one project |
+| `PUT` | `/api/projects/:id` | Admin only | Edit a project |
+| `DELETE` | `/api/projects/:id` | Owner only | Delete project + all its tasks |
+| `POST` | `/api/projects/:id/members` | Admin only | Add a member to the project |
+| `DELETE` | `/api/projects/:id/members/:userId` | Admin only | Remove a member |
+
+### Tasks
+
+| Method | URL | What It Does |
+|--------|-----|-------------|
+| `GET` | `/api/tasks` | Get tasks (you can filter them) |
+| `POST` | `/api/tasks` | Create a new task |
+| `GET` | `/api/tasks/:id` | See one task |
+| `PUT` | `/api/tasks/:id` | Edit a task |
+| `DELETE` | `/api/tasks/:id` | Delete a task |
+| `POST` | `/api/tasks/:id/comments` | Add a comment to a task |
+| `GET` | `/api/tasks/dashboard/stats` | Get numbers for the dashboard |
+
+**Filters you can use with `GET /api/tasks`:**
+```
+?project=ID
+?status=todo OR in-progress OR review OR done
+?priority=low OR medium OR high OR critical
+?search=any word
+?page=1&limit=50
+```
+
+### Users
+
+| Method | URL | What It Does |
+|--------|-----|-------------|
+| `GET` | `/api/users/search?email=` | Find a user by email |
+| `GET` | `/api/users/:id` | Get user details |
 
 ---
 
-## 🔐 Role-Based Access Control
+## 🔐 User Roles & Permissions
 
-| Action | Owner | Admin | Member |
-|--------|:-----:|:-----:|:------:|
-| View project | ✅ | ✅ | ✅ |
-| Create tasks | ✅ | ✅ | ✅ |
-| Edit any task | ✅ | ✅ | ✅ |
-| Delete tasks | ✅ | ✅ | Creator only |
-| Edit project details | ✅ | ✅ | ❌ |
-| Add/remove members | ✅ | ✅ | ❌ |
-| Delete project | ✅ | ❌ | ❌ |
+There are 3 levels of access:
 
-> **Note:** The project creator is automatically assigned as **Owner** with **Admin** role and cannot be removed.
+| What You Can Do | Owner | Admin | Member |
+|----------------|:-----:|:-----:|:------:|
+| See the project | ✅ | ✅ | ✅ |
+| Create and edit tasks | ✅ | ✅ | ✅ |
+| Delete any task | ✅ | ✅ | Only your own |
+| Edit project name/details | ✅ | ✅ | ❌ |
+| Add or remove members | ✅ | ✅ | ❌ |
+| Delete the whole project | ✅ | ❌ | ❌ |
+
+> **Note:** When you create a project, you become the **Owner** with **Admin** powers. You can never be removed from your own project.
 
 ---
 
-## ☁️ Deployment Pipeline
+## ☁️ How We Deployed It
 
-### How It's Deployed (Railway + GitHub CI/CD)
+### The Deployment Flow (GitHub → Railway → Live App)
 
-The application uses a **monorepo deployment strategy** — a single Railway service that builds both the React frontend and Node.js backend, then serves everything from one process.
-
-#### Deployment Architecture
+The app uses a **single-service setup** — one Railway service runs both the React website and the Node.js server together.
 
 ```
-GitHub (main branch)
-        │
-        │  Push triggers auto-deploy
-        ▼
-Railway (Nixpacks Builder)
-        │
-        ├── 1. installCommand: Skip default npm ci
-        ├── 2. buildCommand:
-        │       ├── cd backend && npm install
-        │       ├── cd frontend && npm install
-        │       └── CI=false npm run build  (React production build)
-        │
-        └── 3. startCommand: PORT=5001 NODE_ENV=production node backend/src/server.js
-                │
-                ├── Express serves API routes on /api/*
-                ├── Express serves React static files from frontend/build/
-                └── Catch-all route serves index.html (React Router handles client routes)
+Step 1: Developer pushes code to GitHub
+            │
+            ▼
+Step 2: Railway sees the new code (auto-deploy is ON)
+            │
+            ▼
+Step 3: Railway builds the app:
+            ├── Installs backend packages (npm install)
+            ├── Installs frontend packages (npm install)
+            └── Builds the React website (npm run build)
+            │
+            ▼
+Step 4: Railway starts the server:
+            └── node backend/src/server.js
+                ├── Connects to MongoDB (or creates temporary one)
+                ├── Creates demo data if database is empty
+                ├── Serves API on /api/*
+                └── Serves React website on everything else
+            │
+            ▼
+Step 5: App is live at the Railway URL! ✅
 ```
 
-#### Key Deployment Configurations
+### Settings We Used
 
-**`railway.toml`** — Tells Railway how to build and run:
+**`railway.toml`** — Tells Railway what to do:
 ```toml
 [build]
 builder = "NIXPACKS"
@@ -450,145 +469,136 @@ buildCommand = "cd backend && npm install && cd ../frontend && npm install && CI
 startCommand = "PORT=5001 NODE_ENV=production node backend/src/server.js"
 ```
 
-#### Environment Variables (Railway Dashboard)
+### Environment Variables (set in Railway dashboard)
 
-| Variable | Value | Purpose |
-|----------|-------|---------|
-| `NODE_ENV` | `production` | Enables static file serving |
-| `JWT_SECRET` | `(secret)` | Signs JWT tokens |
-| `MONGODB_URI` | `(Atlas URI)` | Database connection string |
+| Name | Value | Why We Need It |
+|------|-------|----------------|
+| `NODE_ENV` | `production` | Makes the server serve the React website |
+| `JWT_SECRET` | `(secret)` | Used to create login tokens |
+| `MONGODB_URI` | `(database link)` | Where to save data |
 
-#### Deployment Challenges Solved
+### Problems We Fixed During Deployment
 
-| Challenge | Solution |
-|-----------|----------|
-| `npm ci` sync failures | Custom `installCommand` skips default install, runs `npm install` inside `buildCommand` |
-| ESLint warnings treated as errors | `CI=false` in build command prevents React from failing on warnings |
-| Port mismatch (502 error) | `PORT=5001` explicitly set in `startCommand` |
-| Root route showing backend HTML | Root route conditionally hidden in production; Express static middleware serves React |
-| Server unreachable | Server bound to `0.0.0.0` for container networking |
-| CORS blocking API calls | Dynamic CORS origin accepting all Railway domains |
+| # | Problem | Why It Happened | How We Fixed It |
+|---|---------|----------------|-----------------|
+| 1 | Build failed with `npm ci` error | Package files were out of sync | Used custom install command that runs `npm install` instead |
+| 2 | Build failed because of "warnings" | Railway treats warnings as errors (CI=true) | Added `CI=false` so warnings don't stop the build |
+| 3 | Website showed "502 Bad Gateway" | The port number didn't match | Set `PORT=5001` directly in the start command |
+| 4 | Website showed blank page | React files weren't being served | Added `NODE_ENV=production` to turn on file serving |
+| 5 | Home page showed "Backend Running" text | The root route was showing server info instead of React | Made that page only show in development mode |
+| 6 | Server couldn't be reached | Server was only listening on localhost | Changed to listen on `0.0.0.0` (all addresses) |
+| 7 | API calls were blocked | CORS was too strict | Made CORS accept Railway domain addresses |
 
 ---
 
-## 🧠 Data Handling & NoSQL Design
+## 🧠 How Data Is Stored
 
-### Database Schema Design
+### Database Tables (Collections)
 
-```
-┌──────────────┐       ┌───────────────────┐       ┌──────────────────┐
-│    User      │       │     Project       │       │      Task        │
-├──────────────┤       ├───────────────────┤       ├──────────────────┤
-│ _id          │◄──────│ owner (ref: User) │       │ _id              │
-│ name         │       │ name              │◄──────│ project (ref)    │
-│ email        │◄──┐   │ description       │       │ title            │
-│ password     │   │   │ status            │       │ description      │
-│ avatar       │   │   │ priority          │   ┌──►│ assignee (ref)   │
-│ isActive     │   │   │ deadline          │   │   │ status           │
-│ createdAt    │   │   │ color             │   │   │ priority         │
-└──────────────┘   │   │ members: [{       │   │   │ dueDate          │
-                   │   │   user (ref) ─────┼───┘   │ tags: []         │
-                   │   │   role            │       │ comments: [{     │
-                   │   │ }]                │       │   user (ref)     │
-                   │   │ createdAt         │       │   text           │
-                   │   └───────────────────┘       │ }]               │
-                   │                               │ createdBy (ref)──┘
-                   └───────────────────────────────│ createdAt        │
-                                                   └──────────────────┘
-```
-
-### Data Strategy
-
-| Mode | Database | Persistence | Use Case |
-|------|----------|-------------|----------|
-| **Production** | MongoDB Atlas (Cloud) | ✅ Permanent | Live deployment |
-| **Development** | Local MongoDB | ✅ Permanent | Local development |
-| **Fallback** | mongodb-memory-server | ❌ RAM only | No DB available — auto-seeds demo data |
-
-### Data Flow
+We use MongoDB which stores data as documents (like JSON files):
 
 ```
-Frontend (React)
-    │
-    ├── User Action (click, form submit)
+┌──────────────┐       ┌────────────────────┐       ┌──────────────────┐
+│    Users     │       │     Projects       │       │      Tasks       │
+├──────────────┤       ├────────────────────┤       ├──────────────────┤
+│ _id          │◄──────│ owner (→ User)     │       │ _id              │
+│ name         │       │ name               │◄──────│ project (→ Proj) │
+│ email        │◄──┐   │ description        │       │ title            │
+│ password     │   │   │ status             │       │ description      │
+│ avatar       │   │   │ priority           │   ┌──►│ assignee (→ User)│
+│ isActive     │   │   │ deadline           │   │   │ status           │
+└──────────────┘   │   │ color              │   │   │ priority         │
+                   │   │ members: [         │   │   │ dueDate          │
+                   │   │   user (→ User) ───┼───┘   │ tags: []         │
+                   │   │   role (Admin/     │       │ comments: [      │
+                   │   │         Member)    │       │   user (→ User)  │
+                   │   │ ]                  │       │   text           │
+                   │   └────────────────────┘       │ ]                │
+                   │                                │ createdBy(→User) │
+                   └────────────────────────────────└──────────────────┘
+```
+
+### 3 Database Modes
+
+| When | Which Database | Data Saved Forever? | When To Use |
+|------|----------------|:---:|------|
+| **Live app** | MongoDB Atlas (cloud) | ✅ Yes | When the app is running on Railway |
+| **Your computer** | Local MongoDB | ✅ Yes | When you develop on your own machine |
+| **No database** | Temporary in-memory | ❌ No (resets on restart) | Quick testing — no setup needed |
+
+### How Data Flows
+
+```
+You do something on the website (like click "Add Task")
     │
     ▼
-Axios HTTP Client
-    │
-    ├── Attaches JWT token from AuthContext
-    ├── Sends to /api/* endpoint
+React sends a request using Axios (with your login token)
     │
     ▼
-Express Router → Middleware Chain
+Express server gets the request
     │
-    ├── 1. JWT Verification (auth.middleware.js)
-    ├── 2. Role Check (isAdmin, isProjectMember)
-    ├── 3. Input Validation (express-validator)
-    │
-    ▼
-Controller Logic
-    │
-    ├── Business rules, calculations
-    ├── Mongoose query construction
+    ├── 1. Checks your login token is real
+    ├── 2. Checks you have the right role
+    ├── 3. Checks the data is valid
     │
     ▼
-MongoDB (via Mongoose ODM)
-    │
-    ├── Schema validation
-    ├── Pre-save hooks (password hashing)
-    ├── Population (refs → full objects)
+Controller runs the business logic
     │
     ▼
-JSON Response → Axios → React State → UI Re-render
+Mongoose saves/reads data from MongoDB
+    │
+    ▼
+Result sent back to React → Screen updates
 ```
 
 ---
 
-## 🔒 Security Implementation
+## 🔒 Security
 
-| Layer | Implementation |
-|-------|---------------|
-| **Password Storage** | bcrypt with 12 salt rounds — never stored in plain text |
-| **Authentication** | JWT tokens with 7-day expiration |
-| **Authorization** | Role-based middleware (Owner > Admin > Member) |
-| **CORS** | Restricted to known origins (localhost, Railway domains) |
-| **Input Validation** | express-validator on all POST/PUT endpoints |
-| **NoSQL Injection** | Prevented via Mongoose strict schema validation |
-| **Token Security** | Stored in localStorage, sent via Authorization header |
-| **Error Handling** | Global error middleware — stack traces hidden in production |
-
----
-
-## 🐛 Troubleshooting
-
-| Problem | Solution |
-|---------|----------|
-| `MongoNetworkError` | Check `MONGODB_URI` or let it fallback to in-memory DB |
-| `401 Unauthorized` | JWT expired — logout and login again |
-| `403 Forbidden` | Your role doesn't have permission for this action |
-| CORS error in browser | Ensure backend CORS allows your frontend origin |
-| Railway build fails | Check for ESLint errors; ensure `CI=false` in build command |
-| 502 Bad Gateway | Verify PORT matches domain target; check deploy logs |
-| Blank page after deploy | Ensure `NODE_ENV=production` is set |
+| What We Protect | How We Do It |
+|----------------|--------------|
+| **Passwords** | Hashed with bcrypt (12 rounds) — nobody can read them |
+| **Login sessions** | JWT tokens that expire after 7 days |
+| **Who can do what** | Middleware checks your role before every action |
+| **Cross-site requests** | CORS only allows our own frontend and Railway domains |
+| **Bad input** | express-validator checks every form submission |
+| **Database attacks** | Mongoose only accepts data that matches our schemas |
+| **Error details** | In production, error details are hidden from users |
 
 ---
 
-## 🔄 Future Roadmap
+## 🐛 Common Problems & Fixes
 
-- [ ] **Real-Time Notifications** — WebSocket push alerts for task assignments
-- [ ] **Dark/Light Mode Toggle** — switchable themes
-- [ ] **File Attachments** — upload documents and images to tasks
-- [ ] **Drag & Drop Kanban** — drag tasks between status columns
-- [ ] **Activity Log** — audit trail of all project changes
-- [ ] **Mobile App** — React Native companion app
-- [ ] **Email Invitations** — send project invites via email
+| Problem | What To Do |
+|---------|-----------|
+| `MongoNetworkError` | Check your database link, or just remove it and let the app use temporary memory |
+| `401 Unauthorized` | Your login expired — log out and log in again |
+| `403 Forbidden` | You don't have permission — you might need Admin role |
+| CORS error in browser | Make sure the backend allows your frontend URL |
+| Railway build fails | Check for code warnings; make sure `CI=false` is in the build command |
+| 502 Bad Gateway | Check that PORT matches; look at deploy logs |
+| Blank page after deploy | Make sure `NODE_ENV=production` is set |
+
+---
+
+## 🔄 What We Can Add Next
+
+- [ ] **Live Notifications** — get alerts when someone gives you a task
+- [ ] **Light/Dark Mode Switch** — let users pick their theme
+- [ ] **File Upload** — attach documents and images to tasks
+- [ ] **Drag & Drop** — move tasks between columns by dragging
+- [ ] **Activity History** — see who changed what and when
+- [ ] **Mobile App** — a phone version using React Native
+- [ ] **Email Invites** — send project invites through email
 
 ---
 
 ## 🧪 Testing the API
 
+You can test the API using these commands in your terminal:
+
 ```bash
-# Register a new user
+# Create a new account
 curl -X POST https://team-task-manager-production-f241.up.railway.app/api/auth/register \
   -H "Content-Type: application/json" \
   -d '{"name":"Test User","email":"test@example.com","password":"password123"}'
@@ -598,11 +608,7 @@ curl -X POST https://team-task-manager-production-f241.up.railway.app/api/auth/l
   -H "Content-Type: application/json" \
   -d '{"email":"alice@example.com","password":"password123"}'
 
-# Get projects (use token from login response)
-curl https://team-task-manager-production-f241.up.railway.app/api/projects \
-  -H "Authorization: Bearer YOUR_TOKEN_HERE"
-
-# Health check
+# Check if app is running
 curl https://team-task-manager-production-f241.up.railway.app/health
 ```
 
@@ -610,9 +616,9 @@ curl https://team-task-manager-production-f241.up.railway.app/health
 
 ## 📄 License
 
-MIT License — free to use, modify, and distribute.
+MIT License — you can use, change, and share this code freely.
 
 ---
 
 > **Built by Anuj Singh** — Full-Stack Developer  
-> Demonstrating expertise in REST API design, JWT authentication, RBAC, React SPA architecture, and cloud deployment on Railway.
+> This project shows skills in: React, Node.js, Express, MongoDB, JWT login, role-based access, and cloud deployment on Railway.
