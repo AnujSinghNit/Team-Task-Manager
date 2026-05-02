@@ -4,10 +4,7 @@
 
 🌐 **Live App:** [https://team-task-manager-production-f241.up.railway.app](https://team-task-manager-production-f241.up.railway.app)
 
-| Role | Email | Password |
-|------|-------|----------|
-| **Admin** | `alice@example.com` | `password123` |
-| **Member** | `bob@example.com` | `password123` |
+> 💡 Use the **Demo Login** buttons on the login page to try Admin or Member access instantly.
 
 ---
 
@@ -339,12 +336,7 @@ npm start
 
 #### 5. Login and try it
 
-Open `http://localhost:3000` and use:
-
-| Role | Email | Password |
-|------|-------|----------|
-| **Admin** | `alice@example.com` | `password123` |
-| **Member** | `bob@example.com` | `password123` |
+Open `http://localhost:3000` → Click the **"Admin User"** or **"Member User"** demo button → Click **Sign In**
 
 ---
 
@@ -601,12 +593,12 @@ You can test the API using these commands in your terminal:
 # Create a new account
 curl -X POST https://team-task-manager-production-f241.up.railway.app/api/auth/register \
   -H "Content-Type: application/json" \
-  -d '{"name":"Test User","email":"test@example.com","password":"password123"}'
+  -d '{"name":"Your Name","email":"your@email.com","password":"yourpassword"}'
 
 # Login
 curl -X POST https://team-task-manager-production-f241.up.railway.app/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"email":"alice@example.com","password":"password123"}'
+  -d '{"email":"your@email.com","password":"yourpassword"}'
 
 # Check if app is running
 curl https://team-task-manager-production-f241.up.railway.app/health
