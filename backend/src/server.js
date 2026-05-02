@@ -38,16 +38,18 @@ app.get('/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
-// Root route
-app.get('/', (req, res) => {
-  res.send(`
-    <div style="font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background: #0f172a; color: #f8fafc;">
-      <h1 style="color: #6366f1;">🚀 Team Task Manager Backend is Running</h1>
-      <p>The API is live on port ${process.env.PORT || 5001}.</p>
-      <a href="${process.env.FRONTEND_URL || 'http://localhost:3000'}" style="color: #6366f1; text-decoration: none; border: 1px solid #6366f1; padding: 10px 20px; border-radius: 8px; margin-top: 20px;">Go to Frontend →</a>
-    </div>
-  `);
-});
+// Root route (only in development — in production, React app handles this)
+if (process.env.NODE_ENV !== 'production') {
+  app.get('/', (req, res) => {
+    res.send(`
+      <div style="font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background: #0f172a; color: #f8fafc;">
+        <h1 style="color: #6366f1;">🚀 Team Task Manager Backend is Running</h1>
+        <p>The API is live on port ${process.env.PORT || 5001}.</p>
+        <a href="http://localhost:3000" style="color: #6366f1; text-decoration: none; border: 1px solid #6366f1; padding: 10px 20px; border-radius: 8px; margin-top: 20px;">Go to Frontend →</a>
+      </div>
+    `);
+  });
+}
 
 // API Routes
 app.use('/api/auth', authRoutes);
